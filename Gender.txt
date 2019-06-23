@@ -1,0 +1,96 @@
+/**
+ * Created by Rolando on 12/8/2016.
+ */
+import javax.swing.*;
+
+/**
+ * Gender class allows user to select
+ * their gender.
+ */
+
+public class Gender extends JPanel {
+
+    private JRadioButton Male;  // To select Male
+    private JRadioButton Female;// To select Female
+    private ButtonGroup groupButtonsGender; // Radio button grouping
+
+    public Gender()
+    {
+
+        // Create radio buttons
+        Male = new JRadioButton("Male", true);
+        Female = new JRadioButton("Female");
+
+        // Grouping radio buttons
+        groupButtonsGender = new ButtonGroup();
+        groupButtonsGender.add(Male);
+        groupButtonsGender.add(Female);
+
+        // Adding radio buttons to the panel
+        add(Male);
+        add(Female);
+    }
+
+    /**
+     * getGenderNumber method: A constant number will be assigned
+     * to a variable in the formula based on the gender chosen.
+     * @return A number constant based on gender
+     */
+    public double getGenderNumber()
+    {
+        double genderNumber = 0.0;
+
+        if(Male.isSelected())
+            genderNumber = 66.0;
+        if(Female.isSelected())
+            genderNumber = 655.0;
+        return genderNumber;
+    }
+
+    /**
+     * getGenderWeight method: Same as getGenderNumber, except
+     * for a different variable in the formula.
+     * @return A number constant in formula based on gender
+     */
+    public double getGenderWeight()
+    {
+        double genderWeight = 0.0;
+
+        if(Male.isSelected())
+            genderWeight = 6.23;
+        if(Female.isSelected())
+            genderWeight = 4.35;
+        return genderWeight;
+    }
+
+    /**
+     * getGenderHeight method: Same as above, except
+     * for a different variable in the formula
+     * @return A number constant in formula based on gender
+     */
+    public double getGenderHeight()
+    {
+        double genderHeight = 0.0;
+
+        if(Male.isSelected())
+            genderHeight = 12.7;
+        if(Female.isSelected())
+            genderHeight = 4.7;
+        return genderHeight;
+    }
+
+    /**
+     * getGenderAge method: ""
+     * @return A number constant in formula based on gender
+     */
+    public double getGenderAge()
+    {
+        double genderAge = 0.0;
+
+        if(Male.isSelected())
+            genderAge = 6.8;
+        if(Female.isSelected())
+            genderAge = 4.7;
+        return genderAge;
+    }
+}

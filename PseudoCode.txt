@@ -1,0 +1,28 @@
+// FINAL PROJECT PSEUDOCODE
+// calorie expenditure (GUI)
+
+// Prompt user...
+// for GENDER (Male or Female)
+// for WEIGHT in LBS (Validate for numbers only)
+// for HEIGHT in INCHES (Validate for numbers only)
+// for AGE in years (Validate for numbers only)
+// Prompt user for activity level
+
+// Calculate user's BMR(Basal Metabolic Rate/Energy burned at rest)
+	Formula:
+		Men: BMR = 66 + ( 6.23 x weight in pounds ) + ( 12.7 x height in inches ) - ( 6.8 x age in years )
+		
+		Women: 655 + ( 4.35 x weight in pounds ) + ( 4.7 x height in inches ) - ( 4.7 x age in years )
+
+// Calculate TDEE(Total Daily Energy Expenditure)
+	Formula:
+		BMR * Activity Level
+			Sedentary: x 1.2
+			Lightly Active: x 1.375
+			Moderately Active: x 1.55
+			Very Active: x 1.725
+			Extra Active: x 1.9
+	
+/*
+ * Expected use of concepts
+ * Decision Structures, GUI, Methods, Objects and Classes, Inheritance

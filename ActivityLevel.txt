@@ -1,0 +1,75 @@
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * Created by Rolando on 12/8/2016.
+ */
+
+/**
+ * The ActivityLevel class will allow the user
+ * to select their activity level.
+ */
+public class ActivityLevel extends JPanel {
+
+    private JRadioButton Little, Light, Moderate, Heavy, Very;      // To select activity level
+    private ButtonGroup groupButtonsActivity;   // To group buttons so only one can be selected
+
+    /**
+     * Constructor
+     */
+    public ActivityLevel()
+    {
+
+        // Creating the radio buttons
+        Little = new JRadioButton("Little to None", true);
+        Light = new JRadioButton("Light (1-2 days/week)");
+        Moderate = new JRadioButton("Moderate (3-5 days/week)");
+        Heavy = new JRadioButton("Heavy (6-7 days/week)");
+        Very = new JRadioButton("Very Heavy (Physical Job/Exercise Twice a Day)");
+
+        // Grouping the radio butttons
+        groupButtonsActivity = new ButtonGroup();
+        groupButtonsActivity.add(Little);
+        groupButtonsActivity.add(Light);
+        groupButtonsActivity.add(Moderate);
+        groupButtonsActivity.add(Heavy);
+        groupButtonsActivity.add(Very);
+
+        // Creating a GridLayout manager
+        // with 5 rows and 1 column.
+        setLayout(new GridLayout(5,1));
+
+        // Adding a border around the panel with a title
+        setBorder(BorderFactory.createTitledBorder("Activity Level"));
+
+        // Adding radio Buttons to the panel
+        add(Little);
+        add(Light);
+        add(Moderate);
+        add(Heavy);
+        add(Very);
+    }
+
+    /**
+     * getActivityLevel will return a number constant
+     * in the formula based on what user selects as
+     * activity level
+     * @return Number constant for TDEE
+     */
+    public double getActivityLevel()
+    {
+        double activityLevel = 0.0;
+
+        if(Little.isSelected())
+            activityLevel = 1.2;
+        if(Light.isSelected())
+            activityLevel = 1.375;
+        if(Moderate.isSelected())
+            activityLevel = 1.55;
+        if(Heavy.isSelected())
+            activityLevel = 1.725;
+        if(Very.isSelected())
+            activityLevel = 1.9;
+        return activityLevel;
+    }
+}

@@ -1,0 +1,87 @@
+import javax.swing.*;   // Needed for swing class
+import javax.swing.text.*; // Needed for doc filter
+
+/**
+ * Created by Rolando on 12/10/2016.
+ */
+public class Height extends JPanel {
+
+    public double height;   // Height
+    private JLabel hgt; // Reference to height label
+    private JTextField ht;  // Reference to text field for height
+
+    public Height()
+    {
+        // Create label for height
+        hgt = new JLabel("Height(in.)");
+
+        // Create text field 3 characters long
+        ht = new JTextField(3);
+
+        // Create object for input validation
+        PlainDocument document = (PlainDocument) ht.getDocument();
+        document.setDocumentFilter(new NumberOnlyFilter());
+
+        // Add height components to panel
+        add(hgt);
+        add(ht);
+    }
+
+    /**
+     * For input validation, to assure that anything
+     * other than a number is not entered.
+     */
+    public class NumberOnlyFilter extends DocumentFilter
+    {
+        @Override
+        public void insertString(FilterBypass fb, int offset, String string,
+                                 AttributeSet attr) throws BadLocationException {
+            Document document = fb.getDocument();
+            StringBuilder sb = new StringBuilder();
+            sb.append(document.getText(0, document.getLength()));
+            sb.insert(offset, string);
+
+            if (test(sb.toString())) {
+                super.insertString(fb, offset, string, attr);
+            } else {
+                JOptionPane.showMessageDialog(null, "Enter Numbers only!");
+            }
+        }
+
+        private boolean test(String text) {
+            try {
+                Integer.parseInt(text);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+
+        @Override
+        public void replace(FilterBypass fb, int offset, int length,
+                            String text, AttributeSet attrs) throws BadLocationException {
+            Document document = fb.getDocument();
+            StringBuilder sb = new StringBuilder();
+            sb.append(document.getText(0, document.getLength()));
+            sb.replace(offset, offset + length, text);
+
+            if (test(sb.toString())) {
+                super.replace(fb, offset, length, text, attrs);
+            } else {
+                JOptionPane.showMessageDialog(null, "Enter Numbers only!");
+            }
+        }
+    }
+
+    /**
+     * getHt method: Used to return the
+     * height of user input
+     * @return height number
+     */
+    public double getHt()
+    {
+        //converts JTextField to a double (necessary for formula calculation)
+        height = Double.parseDouble(ht.getText());
+        return height;
+    }
+}

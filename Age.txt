@@ -1,0 +1,93 @@
+import javax.swing.*;      // Needed for swing classes
+import javax.swing.text.*; // Needed for document filter
+
+/**
+ * Created by Rolando on 12/8/2016.
+ */
+public class Age extends JPanel {
+
+    public double age;  // Age
+    private JLabel yrs; // To reference a label regarding age
+    private JTextField years; // To reference a text field regarding age
+
+    /**
+     * Age constructor
+     */
+    public Age()
+    {
+        // Create label for Age
+        yrs = new JLabel("Age");
+
+        // Create a text field 3 characters wide
+        years = new JTextField(3);
+
+        // Creating object for input validation
+        PlainDocument document = (PlainDocument) years.getDocument();
+        document.setDocumentFilter(new NumberOnlyFilter());
+
+        // Adding components to panel
+        add(yrs);
+        add(years);
+    }
+
+
+    /**
+     *  The following are used so that
+     *  when the user attempts to enter a value
+     *  other than a number, it will warn the user
+     *  that the input is invalid.
+     */
+    public class NumberOnlyFilter extends DocumentFilter
+    {
+        @Override
+        public void insertString(FilterBypass fb, int offset, String string,
+                                 AttributeSet attr) throws BadLocationException {
+            Document document = fb.getDocument();
+            StringBuilder sb = new StringBuilder();
+            sb.append(document.getText(0, document.getLength()));
+            sb.insert(offset, string);
+
+            if (test(sb.toString())) {
+                super.insertString(fb, offset, string, attr);
+            } else {
+                JOptionPane.showMessageDialog(null, "Enter Numbers only!");
+            }
+        }
+
+        private boolean test(String text) {
+            try {
+                Integer.parseInt(text);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+
+        @Override
+        public void replace(FilterBypass fb, int offset, int length,
+                            String text, AttributeSet attrs) throws BadLocationException {
+            Document document = fb.getDocument();
+            StringBuilder sb = new StringBuilder();
+            sb.append(document.getText(0, document.getLength()));
+            sb.replace(offset, offset + length, text);
+
+            if (test(sb.toString())) {
+                super.replace(fb, offset, length, text, attrs);
+            } else {
+                JOptionPane.showMessageDialog(null, "Enter Numbers only!");
+            }
+        }
+    }
+
+    /**
+     * getAge method is used to return
+     * the number years the user inputs
+     * @return Age input
+     */
+    public double getAge()
+    {
+        //converts JTextField to a double (necessary for formula calculation)
+        age = Double.parseDouble(years.getText());
+        return age;
+    }
+}

@@ -1,0 +1,121 @@
+/**
+ * Created by Rolando on 12/1/2016.
+ */
+import javax.swing.*;       // Wildcard for swing classes
+import java.awt.event.*;    // Wildcard for event listeners
+
+/**
+ *  This program will calculate how much calories should be
+ *  consumed daily based on gender, age, weight, height,
+ *  and activity level.
+ */
+
+public class TotalEnergyExpenditure extends JFrame {
+    private JPanel panel;       // Panel to hold components
+    private JButton Calculate;  // Button to calculate
+
+    private Gender gender;      // Gender
+    private Age age;            // Age
+    private Weight weight;      // Weight
+    private Height height;      // Height
+    private ActivityLevel activityLevel;    // Activity level
+
+    private final int WINDOW_WIDTH = 320;   // Width of Window(or JFrame)
+    private final int WINDOW_HEIGHT = 300;  // Height of Window (or JFrame)
+
+    /**
+     *  The Constructor
+     */
+
+    public TotalEnergyExpenditure()
+    {
+        // To display a title
+        setTitle("Total Daily Energy Expenditure");
+
+        // Setting the window size
+        setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+        // Centering the window to the screen
+        setLocationRelativeTo(null);
+
+        // Specify the action for the close "X" button
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Creating the panel
+        buildPanel();
+
+        // Adding the components to the panel
+        add(panel);
+
+        // Make components viewable
+        setVisible(true);
+    }
+
+    /**
+     * This method builds the panels for the buttons, labels, and text fields.
+     */
+    private void buildPanel()
+    {
+        // Used to create the custom panels
+        gender = new Gender();
+        age = new Age();
+        weight = new Weight();
+        height = new Height();
+        activityLevel = new ActivityLevel();
+
+        // Creating the panels for the custom panels
+        panel = new JPanel();
+
+        // Adding the custom panels to the main JFrame
+        panel.add(gender);
+        panel.add(age);
+        panel.add(weight);
+        panel.add(height);
+        panel.add(activityLevel);
+
+        // Create a calculate button
+        Calculate = new JButton("Calculate");
+
+        // Register the action listeners for the calculate button
+        Calculate.addActionListener(new calculateButtonListener());
+
+        // Adding the calculate button to the main frame.
+        panel.add(Calculate);
+    }
+
+    /**
+     * Handles the event when the calculate
+     * button is clicked.
+     */
+    private class calculateButtonListener implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            // Variables to hold Basal Metabolic Rate, and Total Daily Energy Expenditure
+            double BMR, TDEE;
+
+            // Calculation for Basal Metabolic Rate (Calories needed a day regardless of activity)
+            BMR = gender.getGenderNumber() + (gender.getGenderWeight() * weight.getWeight()) +
+                    (gender.getGenderHeight()* height.getHt()) - (gender.getGenderAge()*age.getAge());
+
+            // Calculation for Total Daily Energy Expenditure (Calories needed in regards to activity level)
+            TDEE = BMR*activityLevel.getActivityLevel();
+
+            // Output message stating how much calories are needed to consume.
+            JOptionPane.showMessageDialog(null, "You should consume at least " + String.format("%.0f",BMR) + " calories a day."
+            + "\nBased on your activity, you should consume at least " + String.format("%.0f", TDEE) + " calories a day.");
+        }
+    }
+
+    /**
+     * Main method
+     */
+    public static void main(String[] args)
+    {
+        new TotalEnergyExpenditure();
+
+        // Brief explanation of what the program does
+        JOptionPane.showMessageDialog(null, "This program will calculate the amount \nof " +
+                "calories you burn in a day.");
+    }
+}
